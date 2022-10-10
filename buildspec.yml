@@ -25,6 +25,6 @@ phases:
         commands:
             - echo build Completed on 'date'
             
-    artifacts:
-            files:
-              - '**/*'
+artifacts:
+    files:
+        - '**/*'
