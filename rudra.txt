@@ -1,6 +1,0 @@
-<<<<<<< HEAD
-version0.1
-
-=======
-version1
->>>>>>> experimental-branch
