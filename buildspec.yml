@@ -1,19 +1,26 @@
 version: 0.2
 
+run-as: root
+
+env:
+   parameter-store:
+             DB_NAME: "/kunjan/DB_NAME"
+             DB_USER: "/kunjan/DB_USER"
+             DB_PASSWORD: "/kunjan/DB_PASSWORD"
+             DB_HOST: "/kunjan/DB_Host"
+
 phases: 
-    install:
-        runtime-versions:
-            nodejs: 16
-        commands:
-            - echo "installing something"
     pre_build:
-        commands: 
+        commands:
+            - echo "Pre build phase execution is going to start"
             - sudo apt update -y
             - echo "installing source wordpress dependancies"
+            - sudo apt install nginx -y
             - sudo apt install php-fpm php-mysql php-curl php-gd php-intl php-soap php-xml php-xmlrpc php-zip php-mbstring php-soap -y
+            - echo "Pre build ends here"
     build:
         commands:
-            - echo "we are starting the build block"
+            - echo "build phase execution is going to start"
             - sed -i 's/database_name_here/'$DB_Name'/' wp-config.php
             - sed -i 's/username_here/'$DB_User'/' wp-config.php
             - sed -i 's/password_here/'$DB_Password'/' wp-config.php
@@ -23,8 +30,9 @@ phases:
             
     post_build:
         commands:
-            - echo build Completed on 'date'
+            - echo build execution Completed on 'date'
             
 artifacts:
     files:
+        - echo "Uploading artifacts to bucket for next process of deployment"
         - '**/*'
